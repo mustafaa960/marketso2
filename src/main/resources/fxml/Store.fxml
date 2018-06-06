@@ -47,7 +47,7 @@
                   <TableView fx:id="tableProducts" prefHeight="441.0" prefWidth="752.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                     
                      <columns>
-                        <TableColumn fx:id="colProductsNumber" editable="false" maxWidth="3000.0" prefWidth="30.0" text="#" />
+                        <TableColumn fx:id="colProductsNumber" maxWidth="3000.0" prefWidth="30.0" text="#" />
                         <TableColumn fx:id="colBarcode" minWidth="9.0" prefWidth="83.0" text="الباركود" />
                         <TableColumn fx:id="colProductsName" minWidth="2.0" prefWidth="93.0" text="اسم المنتج" />
                         <TableColumn fx:id="colQty" minWidth="2.0" prefWidth="74.0" text="الكمية" />

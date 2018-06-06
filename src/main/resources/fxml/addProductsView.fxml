@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="591.0" prefWidth="1000.0" stylesheets="@../styles/custom.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miq.sms.controllers.AddProductsViewController">
@@ -28,7 +29,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
@@ -64,11 +65,6 @@
                               <Font size="14.0" />
                            </font>
                         </JFXTextField>
-                        <Label prefHeight="17.0" prefWidth="30.0" text="\%">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
                      </children>
                      <padding>
                         <Insets right="10.0" />
@@ -98,12 +94,16 @@
                         <Insets left="10.0" right="90.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXDatePicker fx:id="dataPickExpire" prefHeight="51.0" prefWidth="522.0" promptText="تاريخ انتهاء الصلاحية" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <VBox alignment="BOTTOM_LEFT" prefHeight="79.0" prefWidth="375.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="10.0" right="90.0" />
                      </GridPane.margin>
-                  </JFXDatePicker>
-                  <JFXTextArea fx:id="txtAreaNote" focusColor="#009688" labelFloat="true" promptText="ملاحظات" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <children>
+                        <Label alignment="TOP_LEFT" prefHeight="31.0" prefWidth="332.0" text="تاريخ انتهاء الصلاحية" textFill="#009688" />
+                        <JFXDatePicker fx:id="dataPickExpire" prefHeight="51.0" prefWidth="522.0" promptText="ادخل تاريخ انتهاء الصلاحية" />
+                     </children>
+                  </VBox>
+                  <JFXTextArea fx:id="txtAreaNote" focusColor="#009688" labelFloat="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="30" prefHeight="46.0" prefWidth="337.0" promptText="ملاحظات" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="90.0" top="10.0" />
                      </GridPane.margin>

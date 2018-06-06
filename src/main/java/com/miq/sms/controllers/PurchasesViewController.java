@@ -2,12 +2,14 @@
 package com.miq.sms.controllers;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.miq.sms.models.dao.BuyDao;
 import com.miq.sms.models.vo.BuyVo;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
@@ -63,6 +65,8 @@ public class PurchasesViewController implements Initializable {
     private TableColumn<BuyVo, String> colUsername;
     @FXML
     private TableColumn<BuyVo, String> colNotes;
+    @FXML
+    private JFXComboBox<String> comboShow;
 
     /**
      * Initializes the controller class.
@@ -71,15 +75,45 @@ public class PurchasesViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        fillComboShow();
         fillTableProducts();
         textSearch();
+        comboShow.getSelectionModel().selectedIndexProperty().addListener((newValue) -> {
+            fillTableProducts();
+            textSearch();
+            txtSearchBarcode.setText("");
+        });
+       comboShow.getSelectionModel().selectFirst();
     }    
+    public void fillComboShow() {
+        ObservableList<String> comboList = FXCollections.observableArrayList();
+        comboList.addAll("الكل","يوم","اسبوع","شهر");
+        comboShow.setItems(comboList);
+    }
     public void fillTableProducts(){
         
          try {
              
              tableProducts.getItems().clear();
              ObservableList<BuyVo> products = BuyDao.getInstance().loadAll();
+             ObservableList<BuyVo> productsDay = FXCollections.observableArrayList();
+            ObservableList<BuyVo> productsWeak = FXCollections.observableArrayList();
+            ObservableList<BuyVo> productsMonth = FXCollections.observableArrayList();
+            products.forEach((t) -> {
+                if (((Date) t.getDate()).after(Date.valueOf(LocalDate.now().minusDays(1)))) {
+                    productsDay.add(t);
+                }
+            });
+            products.forEach((t) -> {
+                if (((Date) t.getDate()).after(Date.valueOf(LocalDate.now().minusDays(7)))) {
+                    productsWeak.add(t);
+                }
+            });
+            products.forEach((t) -> {
+                if (((Date) t.getDate()).after(Date.valueOf(LocalDate.now().minusDays(30)))) {
+                    productsMonth.add(t);
+                }
+            });
              colProductsNumber.setCellValueFactory(c -> c.getValue().IdProperty().asObject());
              colBarcode.setCellValueFactory(c -> c.getValue().getProductsVo().BarcodeProperty());
              colProductsName.setCellValueFactory(c -> c.getValue().getProductsVo().NameProperty());
@@ -89,7 +123,20 @@ public class PurchasesViewController implements Initializable {
              colDate.setCellValueFactory(c -> c.getValue().DateProperty());
              colUsername.setCellValueFactory(c -> c.getValue().UserNameProperty());
              colNotes.setCellValueFactory(c -> c.getValue().NotesProperty());
-             tableProducts.setItems(products);
+             if(comboShow.getSelectionModel().getSelectedIndex()==0){
+                tableProducts.setItems(products);
+            }
+            else if(comboShow.getSelectionModel().getSelectedIndex()==1){
+                tableProducts.setItems(productsDay);
+            }
+            else if(comboShow.getSelectionModel().getSelectedIndex()==2){
+                tableProducts.setItems(productsWeak);
+            }
+            else if(comboShow.getSelectionModel().getSelectedIndex()==3){
+                tableProducts.setItems(productsMonth);
+            }else{
+                tableProducts.setItems(products);
+            }
              
              tableProducts.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
              

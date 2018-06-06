@@ -26,29 +26,48 @@
             <version>4.0.4</version>
         </dependency>
         <dependency>
-        <groupId>de.jensd</groupId>
-        <artifactId>fontawesomefx</artifactId>
-        <version>8.9</version>
-    </dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx</artifactId>
+            <version>8.9</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/com.jfoenix/jfoenix -->
-                <dependency>
+        <dependency>
             
             <groupId>com.jfoenix</groupId>
             <artifactId>jfoenix</artifactId>
             <version>8.0.1</version>
-                        <type>jar</type>
-                </dependency>
-<!--        <dependency>
-            <groupId>com.jfoenix</groupId>
-            <artifactId>jfoenix</artifactId>
-            <version>1.1.0</version>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>com.jfoenix</groupId>
-            <artifactId>jfoenix</artifactId>
-            <version>1.8.0</version>
-        </dependency>-->
+            <type>jar</type>
+        </dependency>
+<!--         https://mvnrepository.com/artifact/com.healthmarketscience.jackcess/jackcess-encrypt 
+<dependency>
+    <groupId>com.healthmarketscience.jackcess</groupId>
+    <artifactId>jackcess-encrypt</artifactId>
+    <version>2.1.1</version>
+</dependency>-->
 
+<!--         https://mvnrepository.com/artifact/com.healthmarketscience.jackcess/jackcess-encrypt 
+        <dependency>
+            <groupId>com.healthmarketscience.jackcess</groupId>
+            <artifactId>jackcess-encrypt</artifactId>
+            <version>2.1.4</version>
+        </dependency>-->
+<!--        <dependency>
+            <groupId>com.healthmarketscience.jackcess</groupId>
+            <artifactId>jackcess-encrypt</artifactId>
+            <version>2.1.4</version>
+            <type>jar</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcprov-jdk15</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>-->
+<!--        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.52</version>
+        </dependency>-->
     </dependencies>
     <build>
         <plugins>

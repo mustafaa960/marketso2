@@ -22,18 +22,18 @@
          <children>
             <JFXToolbar fx:id="toolBar" prefHeight="50.0" prefWidth="1300.0" styleClass="toolbar">
                <center>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SUPERMARKET MANAGEMENT SYSTEM" wrappingWidth="302.13671875" BorderPane.alignment="CENTER">
+                  <Text fill="WHITE" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="نظام ادارة سوبر ماركت" textAlignment="CENTER" wrappingWidth="302.13671875" BorderPane.alignment="CENTER">
                      <font>
-                        <Font name="Roboto Medium" size="17.0" />
+                        <Font size="20.0" />
                      </font>
                   </Text>
                </center>
             </JFXToolbar>
             <HBox prefHeight="680.0" prefWidth="1300.0">
                <children>
-                  <AnchorPane fx:id="sideAnchor" prefHeight="675.0" prefWidth="186.0" styleClass="side-bar">
+                  <AnchorPane fx:id="sideAnchor" prefHeight="675.0" prefWidth="150.0" styleClass="side-bar">
                      <children>
-                        <GridPane alignment="CENTER" layoutX="3.0" layoutY="13.0" prefHeight="337.0" prefWidth="189.0">
+                        <GridPane alignment="CENTER" layoutY="23.0" prefHeight="372.0" prefWidth="188.0">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                            </columnConstraints>
@@ -56,6 +56,9 @@
                                  <padding>
                                     <Insets left="50.0" />
                                  </padding>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
                               </JFXButton>
                               <JFXButton fx:id="btnViewSales" onAction="#onViewSales" prefHeight="36.0" prefWidth="189.0" ripplerFill="#0e6c8e" styleClass="side-buttons" text="بيع" textAlignment="RIGHT" textFill="#757575" GridPane.rowIndex="1">
                                  <font>
@@ -64,6 +67,9 @@
                                  <padding>
                                     <Insets left="50.0" />
                                  </padding>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
                               </JFXButton>
                               <JFXButton fx:id="btnAddProduct" onAction="#onAddProduct" prefHeight="36.0" prefWidth="189.0" ripplerFill="#0e6c8e" styleClass="side-buttons" text="شراء" textAlignment="RIGHT" textFill="#757575" GridPane.rowIndex="2">
                                  <font>
@@ -72,14 +78,20 @@
                                  <padding>
                                     <Insets left="50.0" />
                                  </padding>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
                               </JFXButton>
-                              <JFXButton onAction="#onStore" prefHeight="36.0" prefWidth="189.0" ripplerFill="#0e6c8e" styleClass="side-buttons" text="المخزن" textAlignment="RIGHT" textFill="#757575" GridPane.rowIndex="3">
+                              <JFXButton fx:id="btnStore" onAction="#onStore" prefHeight="36.0" prefWidth="189.0" ripplerFill="#0e6c8e" styleClass="side-buttons" text="المخزن" textAlignment="RIGHT" textFill="#757575" GridPane.rowIndex="3">
                                  <font>
                                     <Font name="Roboto Medium" size="13.0" />
                                  </font>
                                  <padding>
                                     <Insets left="50.0" />
                                  </padding>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
                               </JFXButton>
                               <JFXButton fx:id="btnClose" contentDisplay="RIGHT" onAction="#exit" prefHeight="36.0" prefWidth="189.0" ripplerFill="#0e6c8e" styleClass="side-buttons" text="خروج" textAlignment="RIGHT" textFill="#757575" GridPane.rowIndex="8">
                                  <font>
@@ -88,6 +100,9 @@
                                  <padding>
                                     <Insets left="50.0" />
                                  </padding>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
                               </JFXButton>
                               <JFXButton fx:id="btnPurchases" onAction="#onPurchases" prefHeight="36.0" prefWidth="189.0" ripplerFill="#0e6c8e" styleClass="side-buttons" text="المشتريات" textAlignment="RIGHT" textFill="#757575" GridPane.rowIndex="4">
                                  <font>
@@ -113,37 +128,37 @@
                               </JFXButton>
                               <FontAwesomeIconView glyphName="HOME" size="28" textAlignment="CENTER" wrappingWidth="40.0">
                                  <GridPane.margin>
-                                    <Insets left="2.0" />
+                                    <Insets left="5.0" />
                                  </GridPane.margin>
                               </FontAwesomeIconView>
                               <FontAwesomeIconView glyphName="SHOPPING_CART" size="28" textAlignment="CENTER" wrappingWidth="40.0" GridPane.rowIndex="1">
                                  <GridPane.margin>
-                                    <Insets left="2.0" />
+                                    <Insets left="5.0" />
                                  </GridPane.margin>
                               </FontAwesomeIconView>
                               <FontAwesomeIconView glyphName="SHOPPING_BAG" size="28" textAlignment="CENTER" wrappingWidth="40.0" GridPane.rowIndex="2">
                                  <GridPane.margin>
-                                    <Insets left="2.0" />
+                                    <Insets left="5.0" />
                                  </GridPane.margin>
                               </FontAwesomeIconView>
                               <FontAwesomeIconView glyphName="ARCHIVE" size="28" textAlignment="CENTER" wrappingWidth="40.0" GridPane.rowIndex="3">
                                  <GridPane.margin>
-                                    <Insets left="2.0" />
+                                    <Insets left="5.0" />
                                  </GridPane.margin>
                               </FontAwesomeIconView>
                               <FontAwesomeIconView glyphName="BAR_CHART" size="28" textAlignment="CENTER" wrappingWidth="40.0" GridPane.rowIndex="5">
                                  <GridPane.margin>
-                                    <Insets left="2.0" />
+                                    <Insets left="5.0" />
                                  </GridPane.margin>
                               </FontAwesomeIconView>
                               <FontAwesomeIconView glyphName="TRUCK" size="28" textAlignment="CENTER" wrappingWidth="40.0" GridPane.rowIndex="4">
                                  <GridPane.margin>
-                                    <Insets left="2.0" />
+                                    <Insets left="5.0" />
                                  </GridPane.margin>
                               </FontAwesomeIconView>
                               <FontAwesomeIconView glyphName="CLOSE" size="28" textAlignment="CENTER" wrappingWidth="40.0" GridPane.rowIndex="8">
                                  <GridPane.margin>
-                                    <Insets left="2.0" />
+                                    <Insets left="5.0" />
                                  </GridPane.margin>
                               </FontAwesomeIconView>
                               <JFXButton fx:id="btnUsers" onAction="#onUsers" prefHeight="36.0" prefWidth="189.0" ripplerFill="#0e6c8e" styleClass="side-buttons" text="المستخدمين" textAlignment="RIGHT" textFill="#757575" GridPane.rowIndex="6">
@@ -153,8 +168,14 @@
                                  <padding>
                                     <Insets left="50.0" />
                                  </padding>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
                               </JFXButton>
-                              <FontAwesomeIconView glyphName="USERS" size="28" textAlignment="CENTER" wrappingWidth="40.0" GridPane.rowIndex="6" />
+                              <FontAwesomeIconView glyphName="USERS" size="28" textAlignment="CENTER" wrappingWidth="40.0" GridPane.rowIndex="6">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin></FontAwesomeIconView>
                               <JFXButton fx:id="btnSetting" onAction="#onSetting" prefHeight="36.0" prefWidth="189.0" ripplerFill="#0e6c8e" styleClass="side-buttons" text="الاعدادات" textAlignment="RIGHT" textFill="#757575" GridPane.rowIndex="7">
                                  <font>
                                     <Font name="Roboto Medium" size="13.0" />
@@ -162,13 +183,19 @@
                                  <padding>
                                     <Insets left="50.0" />
                                  </padding>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
                               </JFXButton>
-                              <FontAwesomeIconView glyphName="COGS" size="28" textAlignment="CENTER" wrappingWidth="40.0" GridPane.rowIndex="7" />
+                              <FontAwesomeIconView glyphName="COGS" size="28" textAlignment="CENTER" wrappingWidth="40.0" GridPane.rowIndex="7">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin></FontAwesomeIconView>
                            </children>
                         </GridPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="holderPane" />
+                  <AnchorPane fx:id="holderPane" prefWidth="1150.0" />
                </children>
             </HBox>
          </children>

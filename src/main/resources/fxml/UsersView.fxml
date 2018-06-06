@@ -55,7 +55,7 @@
                <columns>
                   <TableColumn fx:id="colID" maxWidth="3000.0" prefWidth="20.0" text="#" />
                   <TableColumn fx:id="colUsername" prefWidth="81.0" text="اسم المستخدم" />
-                  <TableColumn fx:id="colPassword" prefWidth="84.0" text="كلمة المرور" />
+                  <TableColumn fx:id="colPassword" prefWidth="84.0" text="كلمة المرور" visible="false" />
                   <TableColumn fx:id="colUserType" prefWidth="70.0" text="نوع الصلاحية" />
                   <TableColumn fx:id="colFullName" minWidth="0.0" prefWidth="0.0" text="الاسم الكامل" />
                </columns>

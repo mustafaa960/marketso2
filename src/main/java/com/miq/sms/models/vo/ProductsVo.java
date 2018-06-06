@@ -25,7 +25,7 @@ public class ProductsVo {
     private FloatProperty buyPrice;
     private FloatProperty salePriceOdd;
     private FloatProperty salePriceEven;
-    private IntegerProperty maxDiscount;
+    private FloatProperty maxDiscount;
     private SimpleObjectProperty<Date> exp_date;
     private SimpleObjectProperty<Date> store_date;
     private StringProperty notes;
@@ -41,7 +41,7 @@ public class ProductsVo {
         this.buyPrice = new SimpleFloatProperty();
         this.salePriceOdd = new SimpleFloatProperty();
         this.salePriceEven = new SimpleFloatProperty();
-        this.maxDiscount = new SimpleIntegerProperty();
+        this.maxDiscount = new SimpleFloatProperty();
         this.exp_date = new SimpleObjectProperty<>();
         this.store_date = new SimpleObjectProperty<>();
         this.notes = new SimpleStringProperty();
@@ -144,15 +144,15 @@ public class ProductsVo {
         this.salePriceEven.set(salePriceEven);
     }
 
-    public int getMaxDiscount() {
+    public float getMaxDiscount() {
         return maxDiscount.get();
     }
 
-    public void setMaxDiscount(int maxDiscount) {
+    public void setMaxDiscount(float maxDiscount) {
         this.maxDiscount.set(maxDiscount);
     }
 
-    public IntegerProperty MaxDiscountProperty() {
+    public FloatProperty MaxDiscountProperty() {
         return maxDiscount;
     }
 

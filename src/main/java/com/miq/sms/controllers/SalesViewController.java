@@ -82,7 +82,7 @@ public class SalesViewController implements Initializable {
     @FXML
     private JFXTextField txtCustomerName;
     @FXML
-    private JFXComboBox<Integer> comboDiscount;
+    private JFXComboBox<Float> comboDiscount;
     @FXML
     private JFXTextField txtPrice;
     @FXML
@@ -105,6 +105,7 @@ public class SalesViewController implements Initializable {
         fillComboQty();
         comboQtyChanged();
         comboDiscountChanged();
+        
     }
 
     @FXML
@@ -154,7 +155,7 @@ public class SalesViewController implements Initializable {
 
     @FXML
     private void onAdd(ActionEvent event) {
-        if (txtBarcode.getText().trim().isEmpty() || txtProductsNumber.getText().trim().isEmpty() || txtPrice.getText().trim().isEmpty() || txtCustomerName.getText().trim().isEmpty()) {
+        if (txtBarcode.getText().trim().isEmpty() || txtProductsNumber.getText().trim().isEmpty() || txtPrice.getText().trim().isEmpty() ) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("خطأ");
             alert.setHeaderText("لا يمكن ترك حقل فارغ");
@@ -189,7 +190,12 @@ public class SalesViewController implements Initializable {
             sv.setDate(Date.valueOf(LocalDate.now()));
             sv.setSalePrice(Float.valueOf(txtPrice.getText().trim()) * Integer.valueOf(txtProductsNumber.getText().trim()));
             sv.setDiscount(comboDiscount.getSelectionModel().getSelectedItem());
-            sv.setCustomerName(txtCustomerName.getText().trim());
+            if(txtCustomerName.getText().trim().isEmpty()){
+                sv.setCustomerName("زبون");
+            }else{
+                sv.setCustomerName(txtCustomerName.getText().trim());
+            }
+            
 //            ============= create instance of userVo
             UsersVo usersVo = new UsersVo();
             String user = DashboardController.usersVo.getUserName();
@@ -240,13 +246,13 @@ public class SalesViewController implements Initializable {
                         labQTYremining.setText(String.valueOf(comboProductsName.getSelectionModel().getSelectedItem().getQty()));
                         if (comboQTY.getSelectionModel().getSelectedIndex() == 0) {
                             float price = comboProductsName.getSelectionModel().getSelectedItem().getSalePriceOdd();
-                            int discount = comboDiscount.getSelectionModel().getSelectedItem();
-                            float total = price - (price * discount / 100);
+                            float discount = comboDiscount.getSelectionModel().getSelectedItem();
+                            float total = price -  discount;
                             txtPrice.setText(String.valueOf(total));
                         } else {
                             float price = comboProductsName.getSelectionModel().getSelectedItem().getSalePriceEven();
-                            int discount = comboDiscount.getSelectionModel().getSelectedItem();
-                            float total = price - (price * discount / 100);
+                            float discount = comboDiscount.getSelectionModel().getSelectedItem();
+                            float total = price -  discount;
                             txtPrice.setText(String.valueOf(total));
                         }
                     } else {
@@ -263,6 +269,12 @@ public class SalesViewController implements Initializable {
                 }
 
             });
+            //make txtProductsNumber is only number ||newValue.matches("[a-zA-Z]*")
+            txtProductsNumber.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtProductsNumber.setText(oldValue);
+            }
+        });
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("خطأ");
@@ -350,12 +362,13 @@ public class SalesViewController implements Initializable {
     }
 
     private void fillComboDiscount() {
-        int maxDiscount = 0;
+        float maxDiscount = 0;
         if (comboProductsName.getSelectionModel().getSelectedItem() != null) {
             maxDiscount = comboProductsName.getSelectionModel().getSelectedItem().getMaxDiscount();
             comboDiscount.getItems().clear();
             for (int i = 0; i <= maxDiscount; i++) {
-                comboDiscount.getItems().add(i);
+                comboDiscount.getItems().add(Float.valueOf(i));
+                i+=249;
             }
             comboDiscount.getSelectionModel().selectFirst();
         }
@@ -369,13 +382,13 @@ public class SalesViewController implements Initializable {
                     txtPrice.setText("");
                     if (comboQTY.getSelectionModel().getSelectedIndex() == 0) {
                         float price = comboProductsName.getSelectionModel().getSelectedItem().getSalePriceOdd();
-                        int discount = comboDiscount.getSelectionModel().getSelectedItem();
-                        float total = price - (price * discount / 100);
+                        float discount = comboDiscount.getSelectionModel().getSelectedItem();
+                        float total = price -  discount;
                         txtPrice.setText(String.valueOf(total));
                     } else if (comboQTY.getSelectionModel().getSelectedIndex() == 1) {
                         float price = comboProductsName.getSelectionModel().getSelectedItem().getSalePriceEven();
-                        int discount = comboDiscount.getSelectionModel().getSelectedItem();
-                        float total = price - (price * discount / 100);
+                        float discount = comboDiscount.getSelectionModel().getSelectedItem();
+                        float total =  price -  discount;
                         txtPrice.setText(String.valueOf(total));
                     }
                 }
@@ -397,13 +410,13 @@ public class SalesViewController implements Initializable {
                         txtPrice.setText("");
                         if (comboQTY.getSelectionModel().getSelectedIndex() == 0) {
                             float price = comboProductsName.getSelectionModel().getSelectedItem().getSalePriceOdd();
-                            int discount = comboDiscount.getSelectionModel().getSelectedItem();
-                            float total = price - (price * discount / 100);
+                            float discount = comboDiscount.getSelectionModel().getSelectedItem();
+                            float total = price  - discount;
                             txtPrice.setText(String.valueOf(total));
                         } else {
                             float price = comboProductsName.getSelectionModel().getSelectedItem().getSalePriceEven();
-                            int discount = comboDiscount.getSelectionModel().getSelectedItem();
-                            float total = price - (price * discount / 100);
+                            float discount = comboDiscount.getSelectionModel().getSelectedItem();
+                            float total = price - discount;
                             txtPrice.setText(String.valueOf(total));
                         }
 

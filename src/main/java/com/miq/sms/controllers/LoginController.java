@@ -12,8 +12,6 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.PauseTransition;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -22,12 +20,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -71,23 +70,23 @@ public class LoginController implements Initializable {
     private void handleValidation() {
         usersVo = new UsersVo();
         RequiredFieldValidator fieldValidator = new RequiredFieldValidator();
-        fieldValidator.setMessage("Input required");
+        fieldValidator.setMessage(" يجب ادخال الاسم");
         fieldValidator.setIcon(new FontAwesomeIconView(FontAwesomeIcon.TIMES));
         txtUsername.getValidators().add(fieldValidator);
         txtUsername.focusedProperty().addListener((ObservableValue<? extends Boolean> o, Boolean oldVal, Boolean newVal) -> {
             if (!newVal) {
                 txtUsername.validate();
-                usersVo.setUserName(txtUsername.getText());
+                usersVo.setUserName(txtUsername.getText().trim());
             }
         });
         RequiredFieldValidator fieldValidator2 = new RequiredFieldValidator();
-        fieldValidator2.setMessage("Input required");
+        fieldValidator2.setMessage("يجب ادخال كلمة المرور");
         fieldValidator2.setIcon(new FontAwesomeIconView(FontAwesomeIcon.TIMES));
         txtPassword.getValidators().add(fieldValidator2);
         txtPassword.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (!newValue) {
                 txtPassword.validate();
-                usersVo.setPassword(txtPassword.getText());
+                usersVo.setPassword(txtPassword.getText().trim());
             }
         });
 
@@ -97,7 +96,11 @@ public class LoginController implements Initializable {
         try {
             UsersVo uv = UsersDao.getInstance().getData(usersVo);
             if (uv == null) {
-                JOptionPane.showMessageDialog(null, "اسم المستخدم او كلمة المرور غير صحيحة");
+                Alert Deletalert = new Alert(Alert.AlertType.ERROR);
+               Deletalert.setTitle("خطأ");
+               Deletalert.setHeaderText("الاسم او كلمة المرور خطأ");
+               Deletalert.setContentText("يجب ادخال الاسم وكلمة المرور بشكل صحيح");
+               Deletalert.showAndWait();
                 imgProgress.setVisible(false);
 //                System.err.println("enter valid user name and password");
             } else {
@@ -107,19 +110,28 @@ public class LoginController implements Initializable {
         
             imgProgress.setVisible(false);
             Stage dashboardStage = new Stage();
-            dashboardStage.setTitle("");
+            dashboardStage.setTitle("نظام ادارة سوبر ماركت");
+            dashboardStage.getIcons().add(new Image("/icons/sms.png"));
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/Dashboard.fxml"));
             Scene scene = new Scene(root);
             dashboardStage.setScene(scene);
             dashboardStage.show();
             }
         }catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, ex);
+           Alert alert = new Alert(Alert.AlertType.ERROR);
+             alert.setTitle("خطأ");
+            alert.setHeaderText(ex.getMessage());
+            alert.setContentText(ex.toString());
+            alert.showAndWait();
 //            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         
 
     }   catch (Exception ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+             alert.setTitle("خطأ");
+            alert.setHeaderText(ex.getMessage());
+            alert.setContentText(ex.toString());
+            alert.showAndWait();
         }
     }
 

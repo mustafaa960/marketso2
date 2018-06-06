@@ -51,7 +51,18 @@ public class EditSalesReportController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        //make txtProductsQty is only number 
+            txtProductsQty.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtProductsQty.setText(oldValue);
+            }
+        });
+//        //make txtDiacount is only number 
+//            txtDiacount.textProperty().addListener((observable, oldValue, newValue) -> {
+//            if (!newValue.matches("\\d*")) {
+//                txtDiacount.setText(oldValue);
+//            }
+//        });
     }    
      SalesVo salesVo = null;
 
@@ -86,7 +97,7 @@ public class EditSalesReportController implements Initializable {
 //            String username = txtUserName.getText().trim();
             String customername = txtCustomerName.getText().trim();
             int qty = Integer.valueOf(txtProductsQty.getText().trim());
-            int discount = Integer.valueOf(txtDiacount.getText().trim());
+            float discount = Float.valueOf(txtDiacount.getText().trim());
             float salePrice = Float.valueOf(txtSalePrice.getText().trim());
             Date date = Date.valueOf(dataPickSale.getValue());
             String notes = txtAreaNote.getText().trim();
@@ -111,7 +122,11 @@ public class EditSalesReportController implements Initializable {
 //            sv.setUserName(username);
             sv.setQty(qty);
             sv.setDiscount(discount);
-            sv.setCustomerName(customername);
+            if(customername.isEmpty()){
+                sv.setCustomerName("زبون");
+            }else{
+                sv.setCustomerName(customername);
+            }
             sv.setSalePrice(salePrice);
             sv.setDate(date);
             sv.setNotes(notes);

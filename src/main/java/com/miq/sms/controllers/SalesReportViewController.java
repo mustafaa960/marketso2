@@ -2,12 +2,15 @@
 package com.miq.sms.controllers;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.miq.sms.models.dao.SalesDao;
 import com.miq.sms.models.vo.SalesVo;
+import com.miq.sms.models.vo.UsersVo;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
@@ -58,13 +61,15 @@ public class SalesReportViewController implements Initializable {
     @FXML
     private TableColumn<SalesVo, Float> colsalePrice;
     @FXML
-    private TableColumn<SalesVo, Integer> colDiscount;
+    private TableColumn<SalesVo, Float> colDiscount;
     @FXML
     private TableColumn<SalesVo, String> colCustomerName;
     @FXML
     private TableColumn<SalesVo, String> colUsername;
     @FXML
     private TableColumn<SalesVo, String> colNotes;
+    @FXML
+    private JFXComboBox<String> comboShow;
 
     /**
      * Initializes the controller class.
@@ -74,16 +79,52 @@ public class SalesReportViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        UsersVo usersVo = new UsersVo();
+            usersVo  = DashboardController.usersVo;
+            if(usersVo.getUsersType().getType()=="user"){
+                btnEditProducts.setVisible(false);
+                btnDeleteProducts.setVisible(false);
+            }
+        fillComboShow();
         fillTableProducts();
         textSearch();
+        comboShow.getSelectionModel().selectedIndexProperty().addListener((newValue) -> {
+            fillTableProducts();
+            textSearch();
+            txtSearchBarcode.setText("");
+        });
+       comboShow.getSelectionModel().selectFirst();
+    }
+    public void fillComboShow() {
+        ObservableList<String> comboList = FXCollections.observableArrayList();
+        comboList.addAll("الكل","يوم","اسبوع","شهر");
+        comboShow.setItems(comboList);
     }
 
     public void fillTableProducts() {
 
         try {
-
+                  
             tableProducts.getItems().clear();
             ObservableList<SalesVo> products = SalesDao.getInstance().loadAll();
+            ObservableList<SalesVo> productsDay = FXCollections.observableArrayList();
+            ObservableList<SalesVo> productsWeak = FXCollections.observableArrayList();
+            ObservableList<SalesVo> productsMonth = FXCollections.observableArrayList();
+            products.forEach((t) -> {
+                if (((Date) t.getDate()).after(Date.valueOf(LocalDate.now().minusDays(1)))) {
+                    productsDay.add(t);
+                }
+            });
+            products.forEach((t) -> {
+                if (((Date) t.getDate()).after(Date.valueOf(LocalDate.now().minusDays(7)))) {
+                    productsWeak.add(t);
+                }
+            });
+            products.forEach((t) -> {
+                if (((Date) t.getDate()).after(Date.valueOf(LocalDate.now().minusDays(30)))) {
+                    productsMonth.add(t);
+                }
+            });
             colProductsNumber.setCellValueFactory(c -> c.getValue().IdProperty().asObject());
             colBarcode.setCellValueFactory(c -> c.getValue().getProductsVo().BarcodeProperty());
             colProductsName.setCellValueFactory(c -> c.getValue().getProductsVo().NameProperty());
@@ -94,7 +135,21 @@ public class SalesReportViewController implements Initializable {
             colCustomerName.setCellValueFactory(c -> c.getValue().CustomerNameProperty());
             colUsername.setCellValueFactory(c -> c.getValue().UserNameProperty());
             colNotes.setCellValueFactory(c -> c.getValue().NotesProperty());
-            tableProducts.setItems(products);
+            if(comboShow.getSelectionModel().getSelectedIndex()==0){
+                tableProducts.setItems(products);
+            }
+            else if(comboShow.getSelectionModel().getSelectedIndex()==1){
+                tableProducts.setItems(productsDay);
+            }
+            else if(comboShow.getSelectionModel().getSelectedIndex()==2){
+                tableProducts.setItems(productsWeak);
+            }
+            else if(comboShow.getSelectionModel().getSelectedIndex()==3){
+                tableProducts.setItems(productsMonth);
+            }else{
+                tableProducts.setItems(products);
+            }
+            
 
             tableProducts.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -126,10 +181,14 @@ public class SalesReportViewController implements Initializable {
                     for (int j = 0; j < count; j++) {
                         String barcode = "" + tableProducts.getColumns().get(1).getCellData(i);
                         String Name = "" + tableProducts.getColumns().get(2).getCellData(i);
+                        String customerName = "" + tableProducts.getColumns().get(7).getCellData(i);
                         if (Name.trim().startsWith(value)) {
                             subentries.add(tableProducts.getItems().get(i));
                             break;
-                        } else if (barcode.trim().startsWith(value)) {
+                        } else if (customerName.trim().startsWith(value)) {
+                            subentries.add(tableProducts.getItems().get(i));
+                            break;
+                        }  else if (barcode.trim().startsWith(value)) {
                             subentries.add(tableProducts.getItems().get(i));
                             break;
                         } else if (barcode.trim().equals(value)) {

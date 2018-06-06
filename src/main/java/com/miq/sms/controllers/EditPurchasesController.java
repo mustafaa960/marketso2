@@ -46,7 +46,13 @@ public class EditPurchasesController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+       //make txtProductsQty is only number 
+            txtProductsQty.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtProductsQty.setText(oldValue);
+            }
+            });
     }
     BuyVo buyVo = null;
 

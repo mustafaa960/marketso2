@@ -58,7 +58,7 @@ public class StoreController implements Initializable {
     @FXML
     private TableColumn<ProductsVo, Float> colSalePriceEven;
     @FXML
-    private TableColumn<ProductsVo, Integer> colMaxDiscount;
+    private TableColumn<ProductsVo, Float> colMaxDiscount;
     @FXML
     private TableColumn<ProductsVo, Date> colExpDate;
     @FXML

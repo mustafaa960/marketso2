@@ -1,4 +1,3 @@
-
 package com.miq.sms.controllers;
 
 import com.jfoenix.controls.JFXRippler;
@@ -18,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -36,15 +34,13 @@ public class OverviewController implements Initializable {
 
     @FXML
     private HBox groupHolder;
-    
+
     @FXML
     private Label labMostWanted;
     @FXML
     private StackPane stackPaneExpireNotify;
     @FXML
     private AnchorPane anchPaneQtyNotify;
-    @FXML
-    private StackPane stackPaneMostWanted;
     @FXML
     private Label lblTotalQty;
     @FXML
@@ -66,8 +62,6 @@ public class OverviewController implements Initializable {
     @FXML
     private Label lblProductsQTYFinish;
     @FXML
-    private TableView<SalesVo> tableProductsMiniSales;
-    @FXML
     private StackPane stackPaneMostWanted1;
     @FXML
     private TableView<SalesVo> tableProductsMaxSales;
@@ -80,12 +74,18 @@ public class OverviewController implements Initializable {
     @FXML
     private Group groupProductsEndQty;
     @FXML
-    private TableColumn<SalesVo, String> colProductsNameLess;
-    @FXML
     private TableColumn<SalesVo, String> colProductsNameMore;
+
+    @FXML
+    private TableColumn<SalesVo, Integer> colProductsQtyDay;
+    @FXML
+    private TableColumn<SalesVo, Float> colProductsPriceDay;
+    @FXML
+    private Label lblTotalPrice;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -95,7 +95,7 @@ public class OverviewController implements Initializable {
         setRipples();
         fillProductsExp();
         fillProductsQty();
-    }    
+    }
 
     private void setRipples() {
         JFXRippler ripplerPinS = new JFXRippler(groupProductsInStore);
@@ -108,23 +108,25 @@ public class OverviewController implements Initializable {
         ripplerPEQ.setMaskType(JFXRippler.RipplerMask.RECT);
 
         ripplerPinS.setRipplerFill(Paint.valueOf("#1564C0"));
-        ripplerSB.setRipplerFill(Paint.valueOf("#00AACF"));
-        ripplerBB.setRipplerFill(Paint.valueOf("#00B3A0"));
-        ripplerPEQ.setRipplerFill(Paint.valueOf("#F87951"));
+        ripplerSB.setRipplerFill(Paint.valueOf("#F87951"));
+        ripplerBB.setRipplerFill(Paint.valueOf("#00AACF"));
+        ripplerPEQ.setRipplerFill(Paint.valueOf("#00B3A0"));
 
         groupHolder.getChildren().addAll(ripplerPinS, ripplerSB, ripplerBB, ripplerPEQ);
     }
-    public void fillProductsExp(){
+
+    public void fillProductsExp() {
         try {
             tableExpProducts.getItems().clear();
             ObservableList<ProductsVo> products = ProductsDao.getInstance().loadAll();
             ObservableList<SalesVo> sales = SalesDao.getInstance().loadAll();
             ObservableList<SalesVo> salesMonth = FXCollections.observableArrayList();
+            ObservableList<SalesVo> salesDay = FXCollections.observableArrayList();
             ObservableList<BuyVo> buy = BuyDao.getInstance().loadAll();
             ObservableList<BuyVo> BuyMonth = FXCollections.observableArrayList();
             ObservableList<ProductsVo> productsExp = FXCollections.observableArrayList();
             products.forEach((t) -> {
-                if(((Date)t.getExp_date()).before(Date.valueOf(LocalDate.now().plusMonths(2)))){
+                if (((Date) t.getExp_date()).before(Date.valueOf(LocalDate.now().plusMonths(2)))) {
                     productsExp.add(t);
                 }
             });
@@ -134,19 +136,20 @@ public class OverviewController implements Initializable {
             lblTotalQty.setText(String.valueOf(products.size()));
             // load sales bill
             sales.forEach((t) -> {
-                if(((Date)t.getDate()).after(Date.valueOf(LocalDate.now().minusDays(30)))){
+                if (((Date) t.getDate()).after(Date.valueOf(LocalDate.now().minusDays(30)))) {
                     salesMonth.add(t);
                 }
             });
+
             lblSalesBill.setText(String.valueOf(salesMonth.size()));
             // load Buy bill
             buy.forEach((t) -> {
-                if(((Date)t.getDate()).after(Date.valueOf(LocalDate.now().minusDays(30)))){
+                if (((Date) t.getDate()).after(Date.valueOf(LocalDate.now().minusDays(30)))) {
                     BuyMonth.add(t);
                 }
             });
             lblPurchasesBill.setText(String.valueOf(BuyMonth.size()));
-            
+
             // load more in this month
 //            ObservableList<SalesVo> salesMonthMore = FXCollections.observableArrayList();
 //            salesMonth.forEach((t) -> {
@@ -154,47 +157,70 @@ public class OverviewController implements Initializable {
 //                    salesMonthMore.add(t);
 //                }
 //            });
-//colProductsNameMore.setCellValueFactory(c->c.getValue().getProductsVo().NameProperty());
-//            tableProductsMaxSales.setItems(salesMonthMore);
-//            
+//load sale by day
+            sales.forEach((t) -> {
+                if (((Date) t.getDate()).after(Date.valueOf(LocalDate.now().minusDays(1)))) {
+                    salesDay.add(t);
+                }
+            });
+            colProductsNameMore.setCellValueFactory(c -> c.getValue().getProductsVo().NameProperty());
+            colProductsQtyDay.setCellValueFactory(c -> c.getValue().QtyProperty().asObject());
+            colProductsPriceDay.setCellValueFactory(c -> c.getValue().SalePriceProperty().asObject());
+            tableProductsMaxSales.setItems(salesDay);
+            tableChanged();
+
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-             alert.setTitle("خطأ");
+            alert.setTitle("خطأ");
             alert.setHeaderText(ex.getMessage());
             alert.setContentText(ex.toString());
             alert.showAndWait();
         }
     }
-    public void fillProductsQty(){
+
+    public void fillProductsQty() {
         try {
             tableProductsQty.getItems().clear();
             ObservableList<ProductsVo> products = ProductsDao.getInstance().loadAll();
             ObservableList<ProductsVo> productsEndQty = FXCollections.observableArrayList();
             products.forEach((t) -> {
-                if(t.getQty()<=t.getQtyMin()){
+                if (t.getQty() <= t.getQtyMin()) {
                     productsEndQty.add(t);
                 }
             });
             colProductsName.setCellValueFactory(c -> c.getValue().NameProperty());
             colQty.setCellValueFactory(c -> c.getValue().QtyProperty().asObject());
             tableProductsQty.setItems(productsEndQty);
-            
+
             // load product End qty
             ObservableList<ProductsVo> productsQty = ProductsDao.getInstance().loadAll();
             ObservableList<ProductsVo> productsQtyFinish = FXCollections.observableArrayList();
             productsQty.forEach((t) -> {
-                if(t.getQty()==0){
+                if (t.getQty() == 0) {
                     productsQtyFinish.add(t);
                 }
             });
             lblProductsQTYFinish.setText(String.valueOf(productsQtyFinish.size()));
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-             alert.setTitle("خطأ");
+            alert.setTitle("خطأ");
             alert.setHeaderText(ex.getMessage());
             alert.setContentText(ex.toString());
             alert.showAndWait();
         }
     }
-    
+ float totalPrice = 0;
+
+    private void tableChanged() {
+
+        if (tableProductsMaxSales.getItems() != null) {
+            totalPrice = 0;
+            tableProductsMaxSales.getItems().forEach((item) -> {
+                totalPrice += item.getSalePrice();
+            });
+            lblTotalPrice.setText(String.valueOf(totalPrice));
+        } else {
+            lblTotalPrice.setText("");
+        }
+    }
 }

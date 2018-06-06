@@ -21,7 +21,7 @@ public class SalesVo {
     private IntegerProperty qty;
 //    private StringProperty barcode;
     private FloatProperty salePrice;
-    private IntegerProperty discount;
+    private FloatProperty discount;
     private SimpleObjectProperty<Date> date;
     private StringProperty notes;
     private StringProperty customerName;
@@ -44,7 +44,7 @@ public class SalesVo {
         this.qty = new SimpleIntegerProperty();
 //        this.barcode = new SimpleStringProperty();
         this.salePrice = new SimpleFloatProperty();
-        this.discount = new SimpleIntegerProperty();
+        this.discount = new SimpleFloatProperty();
         this.date = new SimpleObjectProperty<>();
         this.notes = new SimpleStringProperty();
         this.customerName = new SimpleStringProperty();
@@ -100,15 +100,15 @@ public class SalesVo {
         this.salePrice.set(salePrice);
     }
     
-    public int getDiscount() {
+    public float getDiscount() {
         return discount.get();
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(float discount) {
         this.discount.set(discount);
     }
 
-    public IntegerProperty DiscountProperty() {
+    public FloatProperty DiscountProperty() {
         return discount;
     }
 

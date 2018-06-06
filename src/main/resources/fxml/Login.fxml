@@ -13,51 +13,51 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" stylesheets="@../styles/custom.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miq.sms.controllers.LoginController">
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="600.0" prefWidth="850.0" stylesheets="@../styles/custom.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miq.sms.controllers.LoginController">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
             <Pane prefHeight="224.0" prefWidth="850.0" style="-fx-background-color: rgb(0, 170, 207);" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="377.0" prefWidth="850.0" />
+            <Pane layoutX="10.0" layoutY="10.0" prefHeight="377.0" prefWidth="850.0" style="-fx-background-color: #EEEEEE;" />
          </children>
       </VBox>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <AnchorPane layoutX="226.0" layoutY="122.0" prefHeight="407.0" prefWidth="399.0" style="-fx-background-color: rgb(255, 255, 255); -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-radius: 3;">
+            <AnchorPane layoutX="226.0" layoutY="122.0" prefHeight="407.0" prefWidth="399.0" style="-fx-background-color: #FFFFFF; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-radius: 25;">
                <children>
-                  <ImageView fitHeight="91.0" fitWidth="64.0" layoutX="168.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="72.0" fitWidth="91.0" layoutX="164.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/user-filled-person-shape.png" />
+                        <Image url="@../icons/user1.png" />
                      </image>
                   </ImageView>
-                  <JFXTextField fx:id="txtUsername" labelFloat="true" layoutX="54.0" layoutY="138.0" maxWidth="297.0" minWidth="226.0" prefHeight="31.0" prefWidth="297.0" promptText="Username">
+                  <JFXTextField fx:id="txtUsername" focusColor="#00aacf" labelFloat="true" layoutX="54.0" layoutY="138.0" maxWidth="297.0" minWidth="226.0" prefHeight="31.0" prefWidth="297.0" promptText="اسم المستخدم">
                      <font>
                         <Font name="Roboto Light" size="14.0" />
                      </font>
                   </JFXTextField>
-                  <JFXPasswordField fx:id="txtPassword" labelFloat="true" layoutX="54.0" layoutY="199.0" maxWidth="297.0" minWidth="297.0" prefHeight="31.0" prefWidth="297.0" promptText="Password">
+                  <JFXPasswordField fx:id="txtPassword" focusColor="#00aacf" labelFloat="true" layoutX="54.0" layoutY="199.0" maxWidth="297.0" minWidth="297.0" prefHeight="31.0" prefWidth="297.0" promptText="كلمة المرور">
                      <font>
                         <Font name="Roboto Light" size="14.0" />
                      </font>
                   </JFXPasswordField>
-                  <JFXButton fx:id="btnLogin" buttonType="RAISED" layoutX="154.0" layoutY="258.0" onAction="#login" prefHeight="37.0" prefWidth="91.0" style="-fx-background-color: #00718A;" text="Login" textFill="WHITE">
+                  <JFXButton fx:id="btnLogin" buttonType="RAISED" layoutX="154.0" layoutY="258.0" onAction="#login" prefHeight="37.0" prefWidth="91.0" style="-fx-background-color: rgb(0, 170, 207);" text="دخول" textFill="WHITE">
                      <font>
                         <Font name="Roboto Bold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <ImageView fx:id="imgProgress" fitHeight="64.0" fitWidth="64.0" layoutX="168.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgProgress" fitHeight="64.0" fitWidth="64.0" layoutX="174.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/Preloader_9.gif" />
                      </image>
                   </ImageView>
                </children>
             </AnchorPane>
-            <Label layoutX="247.0" layoutY="14.0" prefHeight="30.0" prefWidth="356.0" text="SUPERMARKET MANAGEMENT SYSTEM" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="247.0" layoutY="14.0" prefHeight="30.0" prefWidth="312.0" text="نظام ادارة سوبر ماركت" textFill="WHITE">
                <font>
-                  <Font name="Roboto Bold" size="20.0" />
+                  <Font size="26.0" />
                </font>
             </Label>
-            <Label layoutX="333.0" layoutY="56.0" text="fx material design" textFill="WHITE">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="333.0" layoutY="56.0" prefHeight="27.0" prefWidth="130.0" text="تسجيل الدخول" textFill="WHITE">
                <font>
                   <Font name="Roboto Light" size="18.0" />
                </font>

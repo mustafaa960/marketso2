@@ -62,7 +62,7 @@ public class SalesDao extends Dao implements DaoList<SalesVo> {
                 productsVo.setBuyPrice(rs.getFloat("buy_price"));
                 productsVo.setSalePriceOdd(rs.getFloat("sale_price_odd"));
                 productsVo.setSalePriceEven(rs.getFloat("sale_price_even"));
-                productsVo.setMaxDiscount(rs.getInt("max_discount"));
+                productsVo.setMaxDiscount(rs.getFloat("max_discount"));
                 productsVo.setExp_date(rs.getDate("exp_date"));
                 productsVo.setStore_date(rs.getDate("store_date"));
                 productsVo.setNotes(rs.getString("notes"));
@@ -72,7 +72,7 @@ public class SalesDao extends Dao implements DaoList<SalesVo> {
                 salesVo.setQty(rs.getInt("sale_bill.qty"));
                 salesVo.setDate(rs.getDate("sale_bill.date"));
                 salesVo.setSalePrice(rs.getFloat("sale_bill.sale_price"));
-                salesVo.setDiscount(rs.getInt("sale_bill.discount"));
+                salesVo.setDiscount(rs.getFloat("sale_bill.discount"));
                 salesVo.setCustomerName(rs.getString("sale_bill.customer_name"));
                 salesVo.setUserName(rs.getString("sale_bill.user_name"));
                 salesVo.setNotes(rs.getString("sale_bill.notes"));
@@ -116,7 +116,7 @@ public class SalesDao extends Dao implements DaoList<SalesVo> {
             ps.setInt(1, sv.getId());
             ps.setInt(2, sv.getQty());
             ps.setFloat(3, sv.getSalePrice());
-            ps.setInt(4, sv.getDiscount());
+            ps.setFloat(4, sv.getDiscount());
             ps.setDate(5, (Date) sv.getDate());
             ps.setString(6, sv.getCustomerName());
 //            ps.setString(7, sv.getUserName());
@@ -153,7 +153,7 @@ public class SalesDao extends Dao implements DaoList<SalesVo> {
             ps = con.prepareStatement(sql);
             ps.setInt(1, sv.getQty());
             ps.setFloat(2, sv.getSalePrice());
-            ps.setInt(3, sv.getDiscount());
+            ps.setFloat(3, sv.getDiscount());
             ps.setDate(4, (Date) sv.getDate());
             ps.setString(5, sv.getCustomerName());
             ps.setString(6, sv.getUser().getUserName());
@@ -236,7 +236,7 @@ public class SalesDao extends Dao implements DaoList<SalesVo> {
                 productsVo.setBuyPrice(rs.getFloat("buy_price"));
                 productsVo.setSalePriceOdd(rs.getFloat("sale_price_odd"));
                 productsVo.setSalePriceEven(rs.getFloat("sale_price_even"));
-                productsVo.setMaxDiscount(rs.getInt("max_discount"));
+                productsVo.setMaxDiscount(rs.getFloat("max_discount"));
                 productsVo.setExp_date(rs.getDate("exp_date"));
                 productsVo.setStore_date(rs.getDate("store_date"));
                 productsVo.setNotes(rs.getString("notes"));
@@ -246,14 +246,14 @@ public class SalesDao extends Dao implements DaoList<SalesVo> {
                 salesVo.setQty(rs.getInt("sale_bill.qty"));
                 salesVo.setDate(rs.getDate("sale_bill.date"));
                 salesVo.setSalePrice(rs.getFloat("sale_bill.sale_price"));
-                salesVo.setDiscount(rs.getInt("sale_bill.discount"));
+                salesVo.setDiscount(rs.getFloat("sale_bill.discount"));
                 salesVo.setCustomerName(rs.getString("sale_bill.customer_name"));
                 salesVo.setUserName(rs.getString("sale_bill.user_name"));
                 salesVo.setNotes(rs.getString("sale_bill.notes"));
                 salesVo.setProductsVo(productsVo);
-                System.err.println(salesVo.getId());
-                System.err.println(" ...........");
-                System.err.println(salesVo.getProductsVo().getId());
+//                System.err.println(salesVo.getId());
+//                System.err.println(" ...........");
+//                System.err.println(salesVo.getProductsVo().getId());
                 
             }
         } catch (SQLException ex) {

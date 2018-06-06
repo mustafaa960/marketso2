@@ -56,7 +56,7 @@ public class ProductsDao extends Dao implements DaoList<ProductsVo> {
                 productsVo.setBuyPrice(rs.getFloat("buy_price"));
                 productsVo.setSalePriceOdd(rs.getFloat("sale_price_odd"));
                 productsVo.setSalePriceEven(rs.getFloat("sale_price_even"));
-                productsVo.setMaxDiscount(rs.getInt("max_discount"));
+                productsVo.setMaxDiscount(rs.getFloat("max_discount"));
                 productsVo.setExp_date(rs.getDate("exp_date"));
                 productsVo.setStore_date(rs.getDate("store_date"));
                 productsVo.setNotes(rs.getString("notes"));
@@ -93,7 +93,7 @@ public class ProductsDao extends Dao implements DaoList<ProductsVo> {
             ps.setFloat(6, pv.getBuyPrice());
             ps.setFloat(7, pv.getSalePriceOdd());
             ps.setFloat(8, pv.getSalePriceEven());
-            ps.setInt(9, pv.getMaxDiscount());
+            ps.setFloat(9, pv.getMaxDiscount());
             ps.setDate(10, (Date) pv.getExp_date());
             ps.setDate(11, (Date) pv.getStore_date());
             ps.setString(12, pv.getNotes());
@@ -126,7 +126,7 @@ public class ProductsDao extends Dao implements DaoList<ProductsVo> {
             ps.setFloat(5, pv.getBuyPrice());
             ps.setFloat(6, pv.getSalePriceOdd());
             ps.setFloat(7, pv.getSalePriceEven());
-            ps.setInt(8, pv.getMaxDiscount());
+            ps.setFloat(8, pv.getMaxDiscount());
             ps.setDate(9, (Date) pv.getExp_date());
             ps.setDate(10, (Date) pv.getStore_date());
             ps.setString(11, pv.getNotes());
@@ -196,7 +196,7 @@ public class ProductsDao extends Dao implements DaoList<ProductsVo> {
                 productsVo.setBuyPrice(rs.getFloat("buy_price"));
                 productsVo.setSalePriceOdd(rs.getFloat("sale_price_odd"));
                 productsVo.setSalePriceEven(rs.getFloat("sale_price_even"));
-                productsVo.setMaxDiscount(rs.getInt("max_discount"));
+                productsVo.setMaxDiscount(rs.getFloat("max_discount"));
                 productsVo.setExp_date(rs.getDate("exp_date"));
                 productsVo.setStore_date(rs.getDate("store_date"));
                 productsVo.setNotes(rs.getString("notes"));

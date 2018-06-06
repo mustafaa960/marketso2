@@ -53,7 +53,25 @@ public class EditProductsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+    //make txtProductsQty is only number 
+            txtProductsQty.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtProductsQty.setText(oldValue);
+            }
+            });
+            //make txtProductsQtyMin is only number
+            txtProductsQtyMin.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtProductsQtyMin.setText(oldValue);
+            }
+            });
+            //make txtDiscount is only number
+//            txtDiscount.textProperty().addListener((observable, oldValue, newValue) -> {
+//            if (!newValue.matches("\\d*")) {
+//                txtDiscount.setText(oldValue);
+//            }
+//            });  
     }
     ProductsVo productsVo = null;
 
@@ -71,6 +89,7 @@ public class EditProductsController implements Initializable {
         Date expDate = (Date) productsVo.getExp_date();
         dataPickExpire.setValue(expDate.toLocalDate());
         txtAreaNote.setText(productsVo.getNotes());
+        
     }
 
     @FXML
@@ -95,7 +114,7 @@ public class EditProductsController implements Initializable {
             float buyPrice = Float.valueOf(txtBuyPrice.getText().trim());
             float salePriceOdd = Float.valueOf(txtSalePriceOdd.getText().trim());
             float salePriceEven = Float.valueOf(txtSalePriceEven.getText().trim());
-            int maxDiscount = Integer.valueOf(txtDiscount.getText().trim());
+            float maxDiscount = Integer.valueOf(txtDiscount.getText().trim());
             Date expDate = Date.valueOf(dataPickExpire.getValue());
             Date storeDate = (Date) this.productsVo.getStore_date();
             String notes = txtAreaNote.getText().trim();

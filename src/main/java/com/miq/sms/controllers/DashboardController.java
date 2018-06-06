@@ -7,14 +7,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.swing.JOptionPane;
 
@@ -34,7 +37,7 @@ public class DashboardController implements Initializable {
     private AnchorPane sideAnchor;
     @FXML
     private JFXToolbar toolBar;
-    private AnchorPane home, sales, addProduct, store, purchases,salesReport,users,setting;
+    private AnchorPane home, sales, addProduct, store, purchases, salesReport, users, setting;
     @FXML
     private JFXButton btnHome;
     @FXML
@@ -52,6 +55,28 @@ public class DashboardController implements Initializable {
     @FXML
     private JFXButton btnSetting;
 
+    public static UsersVo usersVo;
+    @FXML
+    private JFXButton btnStore;
+
+    /**
+     * Creates new form Home
+     *
+     * @param uv
+     */
+    public DashboardController(UsersVo uv) {
+//        initComponents();
+//        this.setLocationRelativeTo(null);
+        usersVo = uv;
+//        getUserLevel();
+
+    }
+
+    public DashboardController() {
+//      ;
+
+    }
+
     /**
      * Initializes the controller class.
      *
@@ -62,23 +87,14 @@ public class DashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         createPages();
-
-    }
-    public static UsersVo usersVo;
-    /**
-     * Creates new form Home
-     * @param uv
-     */
-    public DashboardController(UsersVo uv) {
-//        initComponents();
-//        this.setLocationRelativeTo(null);
-        usersVo=uv;
-//        getUserLevel();
-
-    }
-    public DashboardController() {
-//      ;
-
+        if (usersVo.getUsersType().getType() == "user") {
+            btnAddProduct.setDisable(true);
+            btnStore.setDisable(true);
+            btnPurchases.setDisable(true);
+//            btnSalesReport.setDisable(true);
+            btnUsers.setDisable(true);
+            btnSetting.setDisable(true);
+        }
     }
 
     //Set selected node to a content holder
@@ -111,9 +127,9 @@ public class DashboardController implements Initializable {
             addProduct = addProductloader.load();
             store = storeloader.load();
             purchases = purchaseLoder.load();
-            salesReport=salesReportLoder.load();
-            users=usersLoder.load();
-            setting=settingLoder.load();
+            salesReport = salesReportLoder.load();
+            users = usersLoder.load();
+            setting = settingLoder.load();
 
             //set up default node on page load
             setNode(home);
@@ -157,7 +173,21 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void exit(ActionEvent event) {
-        Platform.exit();
+        try {
+            //        Platform.exit();
+            btnClose.getScene().getWindow().hide();
+            Stage mainStage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+            Scene scene = new Scene(root);
+            mainStage.setScene(scene);
+            mainStage.show();
+        } catch (IOException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+             alert.setTitle("خطأ");
+            alert.setHeaderText(ex.getMessage());
+            alert.setContentText(ex.toString());
+            alert.showAndWait();
+        }
     }
 
     @FXML

@@ -99,12 +99,37 @@ public class AddProductsViewController implements Initializable {
                 if (comboProductsName.getItems().size() > 0) {
                     comboProductsName.setEditable(false);
                     comboProductsName.getSelectionModel().selectFirst();
-
+                    txtProductsQtyMin.setText(String.valueOf(comboProductsName.getSelectionModel().getSelectedItem().getQtyMin()));
+                    txtDiscount.setText(String.valueOf(comboProductsName.getSelectionModel().getSelectedItem().getMaxDiscount()));
+                    txtBuyPrice.setText(String.valueOf(comboProductsName.getSelectionModel().getSelectedItem().getBuyPrice()));
+                    txtSalePriceOdd.setText(String.valueOf(comboProductsName.getSelectionModel().getSelectedItem().getSalePriceOdd()));
+                    txtSalePriceEven.setText(String.valueOf(comboProductsName.getSelectionModel().getSelectedItem().getSalePriceEven()));
+                    Date date = (Date) comboProductsName.getSelectionModel().getSelectedItem().getExp_date();
+                     dataPickExpire.setValue(date.toLocalDate());
                 } else {
                     comboProductsName.setEditable(true);
+                    clearTexts2();
                 }
 
             });
+            //make txtProductsQty is only number ||newValue.matches("[a-zA-Z]*")
+            txtProductsQty.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtProductsQty.setText(oldValue);
+            }
+            });
+            //make txtProductsQtyMin is only number
+            txtProductsQtyMin.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtProductsQtyMin.setText(oldValue);
+            }
+            });
+//            //make txtDiscount is only number
+//            txtDiscount.textProperty().addListener((observable, oldValue, newValue) -> {
+//            if (!newValue.matches("\\d*")) {
+//                txtDiscount.setText(oldValue);
+//            }
+//            });
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("خطأ");
@@ -136,7 +161,7 @@ public class AddProductsViewController implements Initializable {
             float buyPrice = Float.valueOf(txtBuyPrice.getText().trim());
             float salePriceOdd = Float.valueOf(txtSalePriceOdd.getText().trim());
             float salePriceEven = Float.valueOf(txtSalePriceEven.getText().trim());
-            int maxDiscount = Integer.valueOf(txtDiscount.getText().trim());
+            float maxDiscount = Float.valueOf(txtDiscount.getText().trim());
             Date expDate = Date.valueOf(dataPickExpire.getValue());
             Date storeDate = Date.valueOf(LocalDate.now());
             String notes = txtAreaNote.getText().trim();
@@ -207,7 +232,7 @@ public class AddProductsViewController implements Initializable {
 
             } else {
                 int id = ProductsDao.getInstance().getLastProductId() + 1;
-                String name = comboProductsName.getEditor().getText();
+                String name = comboProductsName.getEditor().getText().trim();
 
                 ProductsVo productsVo = new ProductsVo();
                 productsVo.setId(id);
@@ -340,6 +365,18 @@ public class AddProductsViewController implements Initializable {
         comboProductsName.getItems().clear();
         comboProductsName.getEditor().setText("");
         txtProductsQty.setText("");
+        txtProductsQtyMin.setText("");
+        txtDiscount.setText("");
+        txtBuyPrice.setText("");
+        txtSalePriceOdd.setText("");
+        txtSalePriceEven.setText("");
+        dataPickExpire.getEditor().setText("");
+        dataPickExpire.setValue(null);
+        txtAreaNote.setText("");
+    }
+    private void clearTexts2() {
+        comboProductsName.getItems().clear();
+        comboProductsName.getEditor().setText("");
         txtProductsQtyMin.setText("");
         txtDiscount.setText("");
         txtBuyPrice.setText("");
