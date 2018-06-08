@@ -9,8 +9,6 @@ import com.miq.sms.models.vo.UsersType;
 import com.miq.sms.models.vo.UsersVo;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -91,6 +89,10 @@ public class EditUsersController implements Initializable {
                 alert.showAndWait();
                 Stage stage = (Stage) btnSave.getScene().getWindow();
                 stage.close();
+                // instance of user
+                String getuser = DashboardController.usersVo.getUserName();
+                LoginController lc = new LoginController();
+                lc.iniFile(getuser, "edit user : " + uv.getUserName());
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("خطأ");

@@ -21,8 +21,8 @@ public class Dao {
 
     public Connection getConnection() {
         Path sourceDir = Paths.get("classes\\db");
-        Path targetDir = Paths.get("classes\\MarketSo\\db");
-//        Path targetDir = Paths.get("C:\\MarketSo\\db");
+//        Path targetDir = Paths.get("classes\\MarketSo\\db");
+        Path targetDir = Paths.get("C:\\MarketSo\\db");
         String msAccDB = "";
         if (!Files.exists(targetDir)) {
             try {
@@ -56,7 +56,7 @@ public class Dao {
         // Step 2: Opening database connection
         try {
 //            String msAccDB = "..\\marketso\\src\\main\\resources\\db\\sms.accdb";
-            msAccDB = "classes\\MarketSo\\db\\sms.accdb";
+            msAccDB = "C:\\MarketSo\\db\\sms.accdb";
 //             msAccDB = "C:\\MarketSo\\db\\sms.accdb";
             String dbURL = "jdbc:ucanaccess://" + msAccDB;
 //            String dbURL = "jdbc:ucanaccess://" + msAccDB+";jackcessOpener=com.miq.sms.models.dao.CryptCodecOpener";

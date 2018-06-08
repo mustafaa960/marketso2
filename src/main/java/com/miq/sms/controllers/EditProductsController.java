@@ -114,7 +114,7 @@ public class EditProductsController implements Initializable {
             float buyPrice = Float.valueOf(txtBuyPrice.getText().trim());
             float salePriceOdd = Float.valueOf(txtSalePriceOdd.getText().trim());
             float salePriceEven = Float.valueOf(txtSalePriceEven.getText().trim());
-            float maxDiscount = Integer.valueOf(txtDiscount.getText().trim());
+            float maxDiscount = Float.valueOf(txtDiscount.getText().trim());
             Date expDate = Date.valueOf(dataPickExpire.getValue());
             Date storeDate = (Date) this.productsVo.getStore_date();
             String notes = txtAreaNote.getText().trim();
@@ -147,6 +147,10 @@ public class EditProductsController implements Initializable {
                 alert.showAndWait();
                 Stage stage = (Stage) btnSave.getScene().getWindow();
                 stage.close();
+                // instance of user
+                String getuser = DashboardController.usersVo.getUserName();
+                LoginController lc = new LoginController();
+                lc.iniFile(getuser, "edit Product : " + pv.getName());
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("خطأ");

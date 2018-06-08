@@ -95,6 +95,9 @@ public class StoreController implements Initializable {
                         alert.setHeaderText("تم الحذف بنجاح");
                         alert.showAndWait();
                         textSearch();
+                        String getuser = DashboardController.usersVo.getUserName();
+                        LoginController lc = new LoginController();
+                        lc.iniFile(getuser, "delete Product : " + pv.getName());
                     }
                 } catch (Exception ex) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);

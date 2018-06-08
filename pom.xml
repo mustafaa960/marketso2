@@ -4,7 +4,7 @@
 
     <groupId>com.miq</groupId>
     <artifactId>sms</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>sms</name>
@@ -154,5 +154,5 @@
             </plugin>
         </plugins>
     </build>
-
+    <description>super market management system created by MiQ</description>
 </project>

@@ -62,13 +62,19 @@ public class AddUsersController implements Initializable {
                 alert.showAndWait();
                 return;
             }
+            UsersVo usersVo = new UsersVo();
             int id = UsersDao.getInstance().getLastUserId()+1;
+            if(id<0){
+                usersVo.setId(1);
+            }else{
+                usersVo.setId(id);
+            }
             String userName = txtUsername.getText().trim();
             String password = txtPassword.getText().trim();
             String fullName =txtFullName.getText().trim();
             UsersType usersType = UsersType.getUsersTypeById(comboUserType.getSelectionModel().getSelectedIndex() + 1);
-            UsersVo usersVo = new UsersVo();
-            usersVo.setId(id);
+            
+            
             usersVo.setUserName(userName);
             usersVo.setPassword(password);
             usersVo.setUserFullName(fullName);
@@ -81,6 +87,9 @@ public class AddUsersController implements Initializable {
                     alert.showAndWait();
                     Stage stage = (Stage) btnSave.getScene().getWindow();
                     stage.close();
+                    String getuser = DashboardController.usersVo.getUserName();
+                    LoginController lc = new LoginController();
+                    lc.iniFile(getuser, "add new user : " + userName);
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("خطأ");

@@ -5,6 +5,7 @@ import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
@@ -19,6 +20,7 @@ public class MainApp extends Application {
 //        scene.getStylesheets().add("/styles/Styles.css");
         stage.setResizable(false);
         stage.setFullScreen(false);
+        stage.getIcons().add(new Image("/icons/sms.png"));
         stage.setTitle("تسجيل الدخول");
         stage.setScene(scene);
         stage.show();

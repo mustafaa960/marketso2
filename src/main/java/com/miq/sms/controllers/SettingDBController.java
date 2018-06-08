@@ -14,10 +14,8 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.stage.DirectoryChooser;
-import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -30,7 +28,7 @@ public class SettingDBController implements Initializable {
     private JFXButton btnBackup;
     @FXML
     private JFXButton btnRestore;
-
+    private String user = DashboardController.usersVo.getUserName();
     /**
      * Initializes the controller class.
      *
@@ -47,7 +45,8 @@ public class SettingDBController implements Initializable {
         final DirectoryChooser directoryChooser = new DirectoryChooser();
         final File selectedDirectory = directoryChooser.showDialog(null);
         if (selectedDirectory != null) {
-            Path sourceDir = Paths.get("classes\\MarketSo");
+            Path sourceDir = Paths.get("C:\\MarketSo");
+//            Path sourceDir = Paths.get("classes\\MarketSo");
             Path targetDir = Paths.get(selectedDirectory.getAbsolutePath());
             try {
                 Files.walkFileTree(sourceDir, new CopyDir(sourceDir, targetDir));
@@ -61,8 +60,12 @@ public class SettingDBController implements Initializable {
                 Alert Deletalert = new Alert(Alert.AlertType.INFORMATION);
                 Deletalert.setTitle("تصدير");
                 Deletalert.setHeaderText("تم تصدير قاعدة البيانات بنجاح");
+                
 //        Deletalert.setContentText(ex.getMessage());
                 Deletalert.showAndWait();
+                // logs file  
+                LoginController lc = new LoginController();
+                lc.iniFile(user, "Backup Database");
             } catch (IOException ex) {
                 Alert Deletalert = new Alert(Alert.AlertType.ERROR);
                 Deletalert.setTitle("خطأ");
@@ -83,9 +86,9 @@ public class SettingDBController implements Initializable {
                // Path sourceDir2 = Paths.get("C:\\Users\\AL SAFIR\\Desktop\\New folder (4)\\Database\\db\\BodyBuilding.accdb");
                 Path sourceDir2 = Paths.get(selectedDirectory.getAbsolutePath().concat("\\sms.accdb"));
                // Path sourceDir3 = Paths.get(selectedDirectory.getAbsolutePath().concat("\\Images trainees"));
-               Path targetDir = Paths.get("classes\\MarketSo\\db");
+               Path targetDir = Paths.get("C:\\MarketSo\\db");
 //                Path targetDir2 = Paths.get("C:\\Body Building\\db\\sms.accdb");
-                Path targetDir2 = Paths.get("classes\\MarketSo\\db\\sms.accdb");
+                Path targetDir2 = Paths.get("C:\\MarketSo\\db\\sms.accdb");
 //                Path targetDir2 = Paths.get("C:\\Program Files (x86)\\MarketSo\\classes\\db\\sms.accdb");
               //  Path targetDir3 = Paths.get("C:\\Body Building\\Database\\Images trainees");
               //  Path targetDir4 = Paths.get("C:\\Body Building\\Database\\bdfReports");
@@ -110,6 +113,9 @@ public class SettingDBController implements Initializable {
                 Deletalert.setHeaderText("تم استيراد قاعدة البيانات بنجاح");
 //                Deletalert.setContentText(ex.getMessage());
                 Deletalert.showAndWait();
+                // logs file  
+                LoginController lc = new LoginController();
+                lc.iniFile(user, "Restore Database");
             } catch (IOException ex) {
         Alert Deletalert = new Alert(Alert.AlertType.ERROR);
         Deletalert.setTitle("تحذير");

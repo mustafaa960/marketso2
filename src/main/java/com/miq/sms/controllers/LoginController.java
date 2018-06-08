@@ -1,4 +1,3 @@
-
 package com.miq.sms.controllers;
 
 import com.jfoenix.controls.JFXButton;
@@ -9,8 +8,13 @@ import com.miq.sms.models.dao.UsersDao;
 import com.miq.sms.models.vo.UsersVo;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.animation.PauseTransition;
 import javafx.beans.value.ObservableValue;
@@ -92,43 +96,95 @@ public class LoginController implements Initializable {
 
     }
 
+    //logs file
+    public void iniFile(String name, String process) {
+
+//      
+        String timeLog = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(Calendar.getInstance().getTime());
+
+        String dirName = "C:\\MarketSo\\LogsFile";
+
+        String fileName = "logs.txt";
+        File dir = new File(dirName);
+        if (!dir.exists()) {
+
+            dir.mkdir();
+        }
+        File actualFile = new File(dir, fileName);
+
+        if (!actualFile.exists()) {
+
+            try {
+                actualFile.createNewFile();
+            } catch (IOException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("خطأ");
+            alert.setHeaderText(ex.getMessage());
+            alert.setContentText(ex.toString());
+            alert.showAndWait();
+            }
+
+        }
+
+        try {
+            FileWriter writer = new FileWriter(actualFile, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            bufferedWriter.newLine();
+            bufferedWriter.write("#" + timeLog + " : " + name + " ->");
+            bufferedWriter.newLine();
+            bufferedWriter.write(process);
+            bufferedWriter.newLine();
+            bufferedWriter.write("-------------------------------");
+
+            bufferedWriter.close();
+        } catch (IOException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("خطأ");
+            alert.setHeaderText(ex.getMessage());
+            alert.setContentText(ex.toString());
+            alert.showAndWait();
+        }
+
+    }
+
     private void completeLogin() {
         try {
             UsersVo uv = UsersDao.getInstance().getData(usersVo);
             if (uv == null) {
                 Alert Deletalert = new Alert(Alert.AlertType.ERROR);
-               Deletalert.setTitle("خطأ");
-               Deletalert.setHeaderText("الاسم او كلمة المرور خطأ");
-               Deletalert.setContentText("يجب ادخال الاسم وكلمة المرور بشكل صحيح");
-               Deletalert.showAndWait();
+                Deletalert.setTitle("خطأ");
+                Deletalert.setHeaderText("الاسم او كلمة المرور خطأ");
+                Deletalert.setContentText("يجب ادخال الاسم وكلمة المرور بشكل صحيح");
+                Deletalert.showAndWait();
                 imgProgress.setVisible(false);
 //                System.err.println("enter valid user name and password");
             } else {
-                DashboardController dashboardController =new DashboardController();
-                dashboardController.usersVo=uv;
-        btnLogin.getScene().getWindow().hide();
-        
-            imgProgress.setVisible(false);
-            Stage dashboardStage = new Stage();
-            dashboardStage.setTitle("نظام ادارة سوبر ماركت");
-            dashboardStage.getIcons().add(new Image("/icons/sms.png"));
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Dashboard.fxml"));
-            Scene scene = new Scene(root);
-            dashboardStage.setScene(scene);
-            dashboardStage.show();
+                DashboardController dashboardController = new DashboardController();
+                dashboardController.usersVo = uv;
+                iniFile(usersVo.getUserName(),"Login");
+                btnLogin.getScene().getWindow().hide();
+
+                imgProgress.setVisible(false);
+                Stage dashboardStage = new Stage();
+                dashboardStage.setTitle("نظام ادارة سوبر ماركت");
+                dashboardStage.getIcons().add(new Image("/icons/sms.png"));
+                Parent root = FXMLLoader.load(getClass().getResource("/fxml/Dashboard.fxml"));
+                Scene scene = new Scene(root);
+                dashboardStage.setScene(scene);
+                dashboardStage.show();
             }
-        }catch (IOException ex) {
-           Alert alert = new Alert(Alert.AlertType.ERROR);
-             alert.setTitle("خطأ");
+        } catch (IOException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("خطأ");
             alert.setHeaderText(ex.getMessage());
             alert.setContentText(ex.toString());
             alert.showAndWait();
 //            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        
 
-    }   catch (Exception ex) {
+        } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-             alert.setTitle("خطأ");
+            alert.setTitle("خطأ");
             alert.setHeaderText(ex.getMessage());
             alert.setContentText(ex.toString());
             alert.showAndWait();
