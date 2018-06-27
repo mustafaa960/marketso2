@@ -282,6 +282,7 @@ public class SalesViewController implements Initializable {
             alert.setContentText(ex.toString());
             alert.showAndWait();
         }
+        txtBarcode.requestFocus();
     }
 
     private void FillComboProductsName() {

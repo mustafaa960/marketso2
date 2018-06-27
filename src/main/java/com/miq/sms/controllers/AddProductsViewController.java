@@ -137,6 +137,7 @@ public class AddProductsViewController implements Initializable {
             alert.setContentText(ex.toString());
             alert.showAndWait();
         }
+        txtBarcode.requestFocus();
     }
 
     @FXML
